@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🍬 Máquina de Doce – AFD</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Background stars (injected by JS) -->
+  <div class="stars-container" id="stars"></div>
+
+  <!-- Scanline overlay -->
+  <div class="scanline"></div>
+
+  <h1 class="title">🍬 MÁQUINA DE DOCE</h1>
+  <p class="subtitle">AUTÔMATO FINITO DETERMINÍSTICO (AFD)</p>
+
+  <div class="layout">
+
+    <!-- ═══════════════ VENDING MACHINE ═══════════════ -->
+    <div class="machine">
+
+      <!-- CRT Screen -->
+      <div class="screen">
+        <div class="screen-label">CRÉDITO INSERIDO</div>
+        <div class="credit-display" id="creditDisplay">R$ 0,00</div>
+        <div class="screen-state" id="stateDisplay">ESTADO: q0  |  R$ 0,00</div>
+      </div>
+
+      <!-- Candy window -->
+      <div class="candy-window">
+        <div class="candy-slot" id="slotA">
+          <div class="candy-icon unavailable" id="candyA" title="Selecionar Doce A">🍭</div>
+          <div class="candy-label">
+            <div class="candy-name">DOCE A</div>
+            <div class="candy-price">R$ 6,00</div>
+          </div>
+          <div class="candy-status no" id="statusA">BLOQ</div>
+        </div>
+        <div class="candy-slot" id="slotB">
+          <div class="candy-icon unavailable" id="candyB" title="Selecionar Doce B">🍫</div>
+          <div class="candy-label">
+            <div class="candy-name">DOCE B</div>
+            <div class="candy-price">R$ 7,00</div>
+          </div>
+          <div class="candy-status no" id="statusB">BLOQ</div>
+        </div>
+        <div class="candy-slot" id="slotC">
+          <div class="candy-icon unavailable" id="candyC" title="Selecionar Doce C">🍬</div>
+          <div class="candy-label">
+            <div class="candy-name">DOCE C</div>
+            <div class="candy-price">R$ 8,00</div>
+          </div>
+          <div class="candy-status no" id="statusC">BLOQ</div>
+        </div>
+      </div>
+
+      <!-- Coin buttons -->
+      <div class="coins-section">
+        <div class="coins-title">↓ INSERIR NOTA / MOEDA ↓</div>
+        <div class="coins-grid">
+          <button class="coin-btn" onclick="insertCoin(1)">
+            <span class="coin-emoji">🪙</span>
+            <span class="coin-value">R$ 1,00</span>
+          </button>
+          <button class="coin-btn" onclick="insertCoin(2)">
+            <span class="coin-emoji">💰</span>
+            <span class="coin-value">R$ 2,00</span>
+          </button>
+          <button class="coin-btn" onclick="insertCoin(5)">
+            <span class="coin-emoji">💵</span>
+            <span class="coin-value">R$ 5,00</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Reset -->
+      <button class="reset-btn" onclick="resetMachine()">↺  REINICIAR MÁQUINA</button>
+
+      <!-- Delivery tray -->
+      <div class="tray">
+        <span class="tray-label">BANDEJA</span>
+        <div id="trayContent"></div>
+      </div>
+      <script src="diagrama.js"></script>
+      <button onclick="generateDiagram()">
+           Gerar Diagrama
+      </button>
+    </div>
+
+    <!-- ═══════════════ AFD PANEL ═══════════════ -->
+    <div class="afd-panel">
+
+      <!-- Transition log -->
+      <div class="panel-box">
+        <div class="panel-title">📟 LOG DE TRANSIÇÕES  δ(q, σ) → q'</div>
+        <div class="log-box" id="logBox">
+          <div class="log-entry">&gt; Sistema iniciado. Estado inicial: q0</div>
+          <div class="log-entry">&gt; Insira notas/moedas para começar...</div>
+        </div>
+      </div>
+
+      <!-- Transition table -->
+      <div class="panel-box">
+        <div class="panel-title">📊 TABELA DE TRANSIÇÕES  δ</div>
+        <div style="overflow-x:auto;">
+          <table class="transition-table">
+            <thead>
+              <tr>
+                <th>Estado</th>
+                <th>Crédito</th>
+                <th>+R$1</th>
+                <th>+R$2</th>
+                <th>+R$5</th>
+                <th>Seleção</th>
+              </tr>
+            </thead>
+            <tbody id="transBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer class="footer-note">
+    AFD – TEORIA DA COMPUTAÇÃO E COMPILADORES
+  </footer>
+
+  <!-- Message Overlay -->
+  <div class="message-overlay" id="overlay">
+    <div class="message-box" id="msgBox">
+      <span class="message-emoji" id="msgEmoji">🍬</span>
+      <div class="message-title" id="msgTitle">DOCE LIBERADO!</div>
+      <div class="message-detail" id="msgDetail"></div>
+      <button class="message-close" id="msgCloseBtn" onclick="closeOverlay()">▶ NOVA COMPRA</button>
+    </div>
+  </div>
+
+  <script src="js/afd.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="diagrama.js"></script> 
+  <script src="js/main.js"></script>
+  <script src="js/nyan.js"></script>
+  
+</body>
+</html>
